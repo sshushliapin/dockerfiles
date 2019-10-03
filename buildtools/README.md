@@ -1,0 +1,1 @@
+docker build --build-arg WINDOWSSERVERCORE_CHANNEL=ltsc2019 -t buildtools:2019-windowsservercore-ltsc2019 -m 2GB .
