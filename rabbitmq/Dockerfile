@@ -1,6 +1,6 @@
-ARG WINDOWSSERVERCORE_CHANNEL
+ARG WINDOWSSERVERCORE_VERSION
 # Use the latest Windows Server Core image with .NET Framework 4.8.
-FROM mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-${WINDOWSSERVERCORE_CHANNEL}
+FROM mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-${WINDOWSSERVERCORE_VERSION}
 
 LABEL Description="RabbitMQ" Vendor="Pivotal" Version="3.6.9"
 
