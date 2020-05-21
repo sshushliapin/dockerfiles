@@ -1,6 +1,6 @@
-ARG core=mcr.microsoft.com/windows/servercore:ltsc2019
-ARG target=mcr.microsoft.com/windows/nanoserver:1809
-FROM $core as download
+ARG CORE_VERSION
+ARG TARGET_VERSION
+FROM mcr.microsoft.com/windows/servercore:$CORE_VERSION as download
 
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
@@ -25,7 +25,7 @@ RUN @( \
       gpg --keyserver ha.pool.sks-keyservers.net --recv-keys $_ ; \
     }
 
-ENV NODE_VERSION 12.16.1
+ENV NODE_VERSION 12.16.3
 
 RUN Invoke-WebRequest $('https://nodejs.org/dist/v{0}/SHASUMS256.txt.asc' -f $env:NODE_VERSION) -OutFile 'SHASUMS256.txt.asc' -UseBasicParsing ; \
     gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc
@@ -58,7 +58,7 @@ RUN [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tl
     Expand-Archive git.zip -DestinationPath C:\git; \
     Remove-Item git.zip
 
-FROM $target
+FROM mcr.microsoft.com/windows/nanoserver:${TARGET_VERSION}
 
 ENV NPM_CONFIG_LOGLEVEL info
 
